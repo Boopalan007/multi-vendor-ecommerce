@@ -1,0 +1,407 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Luxury Checkout | MultiVendor</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background:
+                radial-gradient(circle at 5% 10%, #f1dfc8, transparent 32%),
+                radial-gradient(circle at 95% 90%, #e9d5bd, transparent 30%),
+                #f8f5ef;
+            min-height: 100vh;
+            padding: 45px 18px;
+            color: #38291f;
+        }
+
+        .page-container {
+            max-width: 1050px;
+            margin: auto;
+        }
+
+        .top-heading {
+            text-align: center;
+            margin-bottom: 35px;
+        }
+
+        .brand-label {
+            color: #a47743;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            margin-bottom: 12px;
+        }
+
+        .top-heading h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 43px;
+            color: #38271c;
+            margin-bottom: 10px;
+        }
+
+        .top-heading p {
+            color: #8b7c70;
+            font-size: 14px;
+        }
+
+        .checkout-layout {
+            display: grid;
+            grid-template-columns: 1.15fr 0.85fr;
+            gap: 25px;
+            align-items: start;
+        }
+
+        .checkout-card {
+            background: rgba(255, 255, 255, 0.94);
+            border: 1px solid #eadbc9;
+            border-radius: 22px;
+            padding: 30px;
+            box-shadow: 0 18px 50px rgba(75, 49, 27, 0.09);
+        }
+
+        .section-heading {
+            font-family: 'Playfair Display', serif;
+            font-size: 25px;
+            color: #493426;
+            margin-bottom: 8px;
+        }
+
+        .section-description {
+            color: #968679;
+            font-size: 12px;
+            margin-bottom: 25px;
+        }
+
+        .product {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+            padding: 19px 0;
+            border-bottom: 1px solid #eee5da;
+        }
+
+        .product-details h3 {
+            font-size: 15px;
+            color: #493426;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .product-details p {
+            color: #928274;
+            font-size: 12px;
+            margin-top: 5px;
+        }
+
+        .product-price {
+            color: #9a7045;
+            font-size: 14px;
+            font-weight: 700;
+            white-space: nowrap;
+        }
+
+        .empty-message {
+            color: #927c68;
+            padding: 20px 0;
+        }
+
+        .summary-total {
+            margin-top: 22px;
+            padding: 20px;
+            border-radius: 15px;
+            background: linear-gradient(120deg, #f8efe2, #fffaf3);
+            border: 1px solid #ead9c4;
+        }
+
+        .total-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .total-row span {
+            color: #786554;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .total-row strong {
+            font-family: 'Playfair Display', serif;
+            color: #79502d;
+            font-size: 25px;
+        }
+
+        .delivery-icon {
+            width: 48px;
+            height: 48px;
+            display: grid;
+            place-items: center;
+            border-radius: 14px;
+            background: #f6ecdf;
+            font-size: 23px;
+            margin-bottom: 17px;
+        }
+
+        .address-label {
+            display: block;
+            color: #493426;
+            font-size: 13px;
+            font-weight: 700;
+            margin: 25px 0 10px;
+        }
+
+        textarea {
+            width: 100%;
+            min-height: 155px;
+            resize: vertical;
+            border: 1px solid #e0d1c0;
+            border-radius: 13px;
+            background: #fffdf9;
+            padding: 16px;
+            font-family: 'DM Sans', sans-serif;
+            font-size: 13px;
+            color: #493426;
+            line-height: 1.7;
+            outline: none;
+            transition: 0.3s;
+        }
+
+        textarea:focus {
+            border-color: #b78a55;
+            box-shadow: 0 0 0 4px rgba(183, 138, 85, 0.12);
+        }
+
+        textarea::placeholder {
+            color: #b4a79a;
+        }
+
+        .place-order-btn {
+            width: 100%;
+            margin-top: 22px;
+            padding: 16px;
+            border: none;
+            border-radius: 12px;
+            background: linear-gradient(110deg, #684329, #aa7b46, #684329);
+            color: white;
+            font-family: 'DM Sans', sans-serif;
+            font-size: 13px;
+            font-weight: 700;
+            letter-spacing: 1.2px;
+            cursor: pointer;
+            box-shadow: 0 9px 22px rgba(104, 67, 41, 0.2);
+            transition: 0.3s;
+        }
+
+        .place-order-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 13px 28px rgba(104, 67, 41, 0.3);
+        }
+
+        .error {
+            color: #b42318;
+            background: #fff0ed;
+            border: 1px solid #f3c4ba;
+            border-radius: 10px;
+            padding: 12px;
+            font-size: 13px;
+            margin-bottom: 12px;
+        }
+
+        .success {
+            color: #28633d;
+            background: #edf8ef;
+            border: 1px solid #c8e5ce;
+            border-radius: 10px;
+            padding: 12px;
+            font-size: 13px;
+            margin-bottom: 12px;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-top: 23px;
+            color: #9a7045;
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 700;
+            transition: 0.3s;
+        }
+
+        .back-link:hover {
+            color: #493426;
+        }
+
+        .secure-note {
+            text-align: center;
+            color: #a39587;
+            font-size: 11px;
+            margin-top: 22px;
+            letter-spacing: 0.5px;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 35px;
+            color: #aa9b8d;
+            font-size: 10px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        @media (max-width: 750px) {
+            .checkout-layout {
+                grid-template-columns: 1fr;
+            }
+
+            .top-heading h1 {
+                font-size: 34px;
+            }
+
+            .checkout-card {
+                padding: 23px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="page-container">
+
+    <div class="top-heading">
+        <div class="brand-label">MultiVendor Premium Shopping</div>
+        <h1>Complete Your Order</h1>
+        <p>You're just one step away from enjoying your purchase.</p>
+    </div>
+
+    {% if messages %}
+        {% for message in messages %}
+            <div class="{{ message.tags }}">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endif %}
+
+    <div class="checkout-layout">
+
+        <!-- ORDER SUMMARY -->
+        <div class="checkout-card">
+
+            <h2 class="section-heading">Your Order</h2>
+
+            <p class="section-description">
+                Review your selected products before placing your order.
+            </p>
+
+            {% for item in items %}
+
+                <div class="product">
+
+                    <div class="product-details">
+                        <h3>{{ item.product.name }}</h3>
+
+                        <p>
+                            Unit Price:
+                            ₹{{ item.product.price|floatformat:2 }}
+                        </p>
+
+                        <p>
+                            Quantity: {{ item.quantity }}
+                        </p>
+                    </div>
+
+                    <div class="product-price">
+                        ₹{{ item.product.price|floatformat:2 }}
+                        × {{ item.quantity }}
+                    </div>
+
+                </div>
+
+            {% empty %}
+
+                <p class="empty-message">
+                    Your cart is empty. Please add products before checkout.
+                </p>
+
+            {% endfor %}
+
+            <div class="summary-total">
+
+                <div class="total-row">
+                    <span>Total Amount</span>
+                    <strong>₹{{ total|floatformat:2 }}</strong>
+                </div>
+
+            </div>
+
+            <a href="/cart/" class="back-link">
+                ← Return to Shopping Cart
+            </a>
+
+        </div>
+
+
+        <!-- DELIVERY ADDRESS -->
+        <div class="checkout-card">
+
+            <div class="delivery-icon">📦</div>
+
+            <h2 class="section-heading">Delivery Details</h2>
+
+            <p class="section-description">
+                Where should we deliver your order?
+            </p>
+
+            <form method="POST">
+
+                {% csrf_token %}
+
+                <label class="address-label" for="shipping_address">
+                    COMPLETE DELIVERY ADDRESS
+                </label>
+
+                <textarea
+                    id="shipping_address"
+                    name="shipping_address"
+                    placeholder="Enter your full name, house number, street, area, city, state and PIN code..."
+                    required
+                ></textarea>
+
+                <button type="submit" class="place-order-btn">
+                    PLACE MY ORDER &nbsp; →
+                </button>
+
+            </form>
+
+            <div class="secure-note">
+                ✦ Your shopping experience matters to us ✦
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="footer">
+        MultiVendor • Shop with elegance
+    </div>
+
+</div>
+
+</body>
+</html>

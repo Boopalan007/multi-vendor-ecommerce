@@ -1,0 +1,403 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Become a Vendor | MultiVendor</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            font-family: 'DM Sans', sans-serif;
+            background:
+                radial-gradient(circle at 5% 10%, rgba(16, 185, 129, 0.35), transparent 32%),
+                radial-gradient(circle at 95% 90%, rgba(14, 165, 233, 0.30), transparent 32%),
+                radial-gradient(circle at 50% 50%, rgba(20, 184, 166, 0.15), transparent 45%),
+                linear-gradient(135deg, #031c22, #064e50, #075985, #052b3a);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 45px 18px;
+            color: #173b39;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 680px;
+            background: #ffffff;
+            border-radius: 26px;
+            overflow: hidden;
+            border: 1px solid rgba(255,255,255,0.65);
+            box-shadow: 0 30px 90px rgba(0, 0, 0, 0.35);
+            position: relative;
+        }
+
+        .header {
+            position: relative;
+            overflow: hidden;
+            background:
+                radial-gradient(circle at 5% 10%, rgba(110, 231, 183, 0.35), transparent 35%),
+                radial-gradient(circle at 95% 90%, rgba(56, 189, 248, 0.30), transparent 35%),
+                linear-gradient(120deg, #047857, #0f766e, #0369a1, #075985);
+            padding: 38px 35px 36px;
+            color: white;
+            text-align: center;
+        }
+
+        .header::after {
+            content: "";
+            position: absolute;
+            width: 220px;
+            height: 220px;
+            border: 1px solid rgba(255,255,255,0.13);
+            border-radius: 50%;
+            right: -90px;
+            top: -120px;
+        }
+
+        .logo {
+            font-family: 'Outfit', sans-serif;
+            font-size: 30px;
+            font-weight: 800;
+            letter-spacing: -1px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .logo span {
+            color: #fcd58b;
+        }
+
+        .header h1 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 34px;
+            margin-top: 22px;
+            font-weight: 700;
+            position: relative;
+            z-index: 1;
+        }
+
+        .header p {
+            color: #d5f5f0;
+            margin-top: 10px;
+            font-size: 14px;
+            line-height: 1.7;
+            position: relative;
+            z-index: 1;
+        }
+
+        .header-line {
+            width: 65px;
+            height: 4px;
+            border-radius: 10px;
+            background: linear-gradient(90deg, #fcd58b, #ffffff);
+            margin: 17px auto 0;
+        }
+
+        .form-content {
+            padding: 38px;
+        }
+
+        .section-title {
+            font-family: 'Outfit', sans-serif;
+            font-size: 21px;
+            color: #047857;
+            font-weight: 700;
+            margin-bottom: 9px;
+        }
+
+        .section-description {
+            font-size: 13px;
+            color: #829895;
+            margin-bottom: 25px;
+            line-height: 1.6;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 19px;
+        }
+
+        .field {
+            margin-bottom: 17px;
+        }
+
+        .full-width {
+            grid-column: 1 / -1;
+        }
+
+        label {
+            display: block;
+            font-size: 13px;
+            font-weight: 700;
+            color: #28534e;
+            margin-bottom: 9px;
+        }
+
+        input, textarea {
+            width: 100%;
+            padding: 14px 15px;
+            border: 1.5px solid #d7e9e5;
+            border-radius: 12px;
+            background: #f5fbf9;
+            font-family: 'DM Sans', sans-serif;
+            font-size: 13px;
+            color: #174d48;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        input::placeholder,
+        textarea::placeholder {
+            color: #9db2ad;
+        }
+
+        input:focus, textarea:focus {
+            border-color: #0d9488;
+            background: #ffffff;
+            box-shadow: 0 0 0 4px rgba(13, 148, 136, 0.12);
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 105px;
+            line-height: 1.6;
+        }
+
+        .help-text {
+            font-size: 11px;
+            color: #829895;
+            margin-top: 7px;
+        }
+
+        .submit-btn {
+            width: 100%;
+            border: none;
+            padding: 17px;
+            border-radius: 13px;
+            background: linear-gradient(110deg, #047857, #0d9488, #0284c7);
+            color: white;
+            font-family: 'Outfit', sans-serif;
+            font-size: 17px;
+            font-weight: 700;
+            cursor: pointer;
+            margin-top: 12px;
+            letter-spacing: 0.4px;
+            box-shadow: 0 10px 24px rgba(4, 120, 87, 0.20);
+            transition: all 0.3s ease;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-3px);
+            background: linear-gradient(110deg, #065f46, #0f766e, #075985);
+            box-shadow: 0 14px 28px rgba(4, 120, 87, 0.28);
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 25px;
+            font-size: 13px;
+            color: #829895;
+        }
+
+        a {
+            color: #07846f;
+            font-weight: 700;
+            text-decoration: none;
+            transition: 0.3s;
+        }
+
+        a:hover {
+            color: #0284c7;
+        }
+
+        .home-link {
+            display: block;
+            text-align: center;
+            margin-top: 18px;
+            font-size: 13px;
+        }
+
+        .messages {
+            margin-bottom: 20px;
+        }
+
+        .message {
+            padding: 13px;
+            border-radius: 10px;
+            background: #ecfdf5;
+            border: 1px solid #bbf7d0;
+            color: #166534;
+            margin-bottom: 8px;
+            font-size: 13px;
+        }
+
+        .errorlist {
+            color: #dc2626;
+            font-size: 12px;
+            margin: 5px 0 0 18px;
+        }
+
+        .bottom-note {
+            text-align: center;
+            color: #a0b4af;
+            font-size: 10px;
+            letter-spacing: 1.5px;
+            margin-top: 27px;
+            text-transform: uppercase;
+        }
+
+        @media (max-width: 550px) {
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .full-width {
+                grid-column: auto;
+            }
+
+            .form-content {
+                padding: 27px 21px;
+            }
+
+            .header {
+                padding: 32px 20px;
+            }
+
+            .header h1 {
+                font-size: 27px;
+            }
+
+            .logo {
+                font-size: 26px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <div class="header">
+
+        <div class="logo">
+            Multi<span>Vendor</span>
+        </div>
+
+        <h1>Become a Vendor</h1>
+
+        <p>
+            Turn your business into an online store.
+            Join our marketplace and grow with us!
+        </p>
+
+        <div class="header-line"></div>
+
+    </div>
+
+    <div class="form-content">
+
+        <h2 class="section-title">Business Information</h2>
+
+        <p class="section-description">
+            Enter your business details to create your vendor account.
+        </p>
+
+        {% if messages %}
+        <div class="messages">
+            {% for message in messages %}
+                <div class="message">{{ message }}</div>
+            {% endfor %}
+        </div>
+        {% endif %}
+
+        <form method="POST">
+            {% csrf_token %}
+
+            <div class="form-grid">
+
+                <div class="field full-width">
+                    <label for="business_name">BUSINESS NAME</label>
+                    <input type="text"
+                           id="business_name"
+                           name="business_name"
+                           placeholder="Enter your business name"
+                           required>
+                </div>
+
+                <div class="field">
+                    <label for="phone">PHONE NUMBER</label>
+                    <input type="tel"
+                           id="phone"
+                           name="phone"
+                           placeholder="Enter phone number"
+                           required>
+                </div>
+
+                <div class="field">
+                    <label for="city">CITY</label>
+                    <input type="text"
+                           id="city"
+                           name="city"
+                           placeholder="Enter your city"
+                           required>
+                </div>
+
+                <div class="field full-width">
+                    <label for="address">BUSINESS ADDRESS</label>
+                    <textarea id="address"
+                              name="address"
+                              placeholder="Enter your complete business address"
+                              required></textarea>
+                </div>
+
+                <div class="field full-width">
+                    <label for="description">BUSINESS DESCRIPTION</label>
+                    <textarea id="description"
+                              name="description"
+                              placeholder="Tell customers about your business and the products you sell"></textarea>
+
+                    <p class="help-text">
+                        Describe your store, products and what makes your business special.
+                    </p>
+                </div>
+
+            </div>
+
+            <button type="submit" class="submit-btn">
+                Register My Business &nbsp; →
+            </button>
+
+        </form>
+
+        <div class="footer">
+            Already have an account?
+            <a href="{% url 'login' %}">Login Here</a>
+        </div>
+
+        <a href="{% url 'home' %}" class="home-link">
+            ← Back to Home
+        </a>
+
+        <div class="bottom-note">
+            MultiVendor • Grow Your Business With Us
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+</html>

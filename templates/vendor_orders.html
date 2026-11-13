@@ -1,0 +1,451 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Vendor Orders - MultiVendor</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background: linear-gradient(135deg, #e7f8f1, #e9f3ff, #f7f4e9);
+            min-height: 100vh;
+            padding: 45px 20px;
+            color: #183b35;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: auto;
+        }
+
+        .page-header {
+            background: linear-gradient(120deg, #064e3b, #087e75, #075985);
+            padding: 38px 25px;
+            border-radius: 24px;
+            text-align: center;
+            color: white;
+            margin-bottom: 30px;
+            box-shadow: 0 15px 35px rgba(4, 78, 59, 0.20);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .page-header::before {
+            content: "";
+            position: absolute;
+            width: 230px;
+            height: 230px;
+            border: 1px solid rgba(255,255,255,0.15);
+            border-radius: 50%;
+            right: -65px;
+            top: -120px;
+        }
+
+        .page-header::after {
+            content: "";
+            position: absolute;
+            width: 180px;
+            height: 180px;
+            border: 1px solid rgba(255,255,255,0.12);
+            border-radius: 50%;
+            left: -60px;
+            bottom: -110px;
+        }
+
+        .header-icon {
+            font-size: 35px;
+            margin-bottom: 10px;
+        }
+
+        h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 38px;
+            margin-bottom: 9px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .page-header p {
+            color: #d1fae5;
+            font-size: 14px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .order-card {
+            background: rgba(255,255,255,0.96);
+            border: 1px solid #d8eee5;
+            padding: 28px;
+            margin: 23px 0;
+            border-radius: 20px;
+            box-shadow: 0 8px 25px rgba(15, 80, 65, 0.07);
+            transition: 0.3s ease;
+        }
+
+        .order-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 14px 30px rgba(15, 80, 65, 0.13);
+        }
+
+        .order-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin-bottom: 22px;
+            padding-bottom: 17px;
+            border-bottom: 1px solid #e5eee9;
+        }
+
+        .order-top h2 {
+            font-family: 'Playfair Display', serif;
+            color: #075e4b;
+            font-size: 23px;
+        }
+
+        .order-number {
+            background: #dcfce7;
+            color: #047857;
+            padding: 8px 15px;
+            border-radius: 30px;
+            font-size: 12px;
+            font-weight: 800;
+        }
+
+        .details-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+        }
+
+        .detail-box {
+            background: #f2faf6;
+            border: 1px solid #e0f0e7;
+            border-radius: 13px;
+            padding: 15px;
+            min-width: 0;
+        }
+
+        .detail-box.address {
+            grid-column: 1 / -1;
+        }
+
+        .detail-label {
+            color: #648078;
+            font-size: 11px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 7px;
+        }
+
+        .detail-value {
+            color: #174c3e;
+            font-size: 15px;
+            font-weight: 700;
+            overflow-wrap: anywhere;
+        }
+
+        .status-box {
+            margin-top: 20px;
+            padding: 15px 18px;
+            background: linear-gradient(100deg, #e0f2fe, #dcfce7);
+            border-radius: 12px;
+            color: #075985;
+            font-weight: 700;
+            font-size: 14px;
+            border-left: 5px solid #0d9488;
+        }
+
+        .status-box span {
+            color: #047857;
+        }
+
+        .update-section {
+            margin-top: 24px;
+            padding: 22px;
+            background: linear-gradient(135deg, #f0fdf4, #eff6ff);
+            border: 1px solid #d6eee4;
+            border-radius: 16px;
+        }
+
+        .update-section h3 {
+            font-family: 'Playfair Display', serif;
+            color: #075e4b;
+            font-size: 20px;
+            margin-bottom: 17px;
+        }
+
+        .update-form {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        select {
+            flex: 1;
+            min-width: 190px;
+            padding: 13px 15px;
+            border: 1px solid #b7d9cc;
+            border-radius: 10px;
+            background: white;
+            color: #174c3e;
+            font-family: 'DM Sans', sans-serif;
+            font-size: 14px;
+            font-weight: 600;
+            outline: none;
+        }
+
+        select:focus {
+            border-color: #0d9488;
+            box-shadow: 0 0 0 3px rgba(13,148,136,0.12);
+        }
+
+        .update-btn {
+            background: linear-gradient(110deg, #047857, #0d9488, #075985);
+            color: white;
+            padding: 13px 23px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-family: 'DM Sans', sans-serif;
+            font-size: 13px;
+            font-weight: 800;
+            transition: 0.3s;
+        }
+
+        .update-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 7px 16px rgba(4,120,87,0.22);
+        }
+
+        .empty-state {
+            background: white;
+            text-align: center;
+            padding: 55px 20px;
+            border-radius: 20px;
+            color: #52746a;
+            box-shadow: 0 8px 25px rgba(15,80,65,0.07);
+        }
+
+        .empty-state div {
+            font-size: 45px;
+            margin-bottom: 15px;
+        }
+
+        .empty-state h2 {
+            font-family: 'Playfair Display', serif;
+            color: #075e4b;
+            margin-bottom: 8px;
+        }
+
+        .back-wrapper {
+            text-align: center;
+            margin-top: 32px;
+        }
+
+        .back-btn {
+            display: inline-block;
+            background: linear-gradient(110deg, #064e3b, #087e75, #075985);
+            color: white;
+            padding: 14px 27px;
+            text-decoration: none;
+            border-radius: 12px;
+            font-size: 14px;
+            font-weight: 800;
+            transition: 0.3s;
+        }
+
+        .back-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 18px rgba(4,78,59,0.22);
+        }
+
+        @media (max-width: 600px) {
+            body {
+                padding: 22px 12px;
+            }
+
+            h1 {
+                font-size: 29px;
+            }
+
+            .order-card {
+                padding: 18px;
+            }
+
+            .details-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .detail-box.address {
+                grid-column: auto;
+            }
+
+            .update-form {
+                flex-direction: column;
+            }
+
+            select,
+            .update-btn {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <div class="page-header">
+        <div class="header-icon">📦</div>
+        <h1>Vendor Orders</h1>
+        <p>Manage your customer orders and track every delivery</p>
+    </div>
+
+    {% for item in order_items %}
+
+        <div class="order-card">
+
+            <div class="order-top">
+                <h2>Order #{{ item.order.id }}</h2>
+                <span class="order-number">ORDER DETAILS</span>
+            </div>
+
+            <div class="details-grid">
+
+                <div class="detail-box">
+                    <div class="detail-label">Customer</div>
+                    <div class="detail-value">
+                        {{ item.order.customer.username }}
+                    </div>
+                </div>
+
+                <div class="detail-box">
+                    <div class="detail-label">Product</div>
+                    <div class="detail-value">
+                        {{ item.product.name }}
+                    </div>
+                </div>
+
+                <div class="detail-box">
+                    <div class="detail-label">Unit Price</div>
+                    <div class="detail-value">₹{{ item.price }}</div>
+                </div>
+
+                <div class="detail-box">
+                    <div class="detail-label">Quantity</div>
+                    <div class="detail-value">{{ item.quantity }}</div>
+                </div>
+
+                <div class="detail-box">
+                    <div class="detail-label">Subtotal</div>
+                    <div class="detail-value">
+                        ₹{% widthratio item.price 1 item.quantity %}
+                    </div>
+                </div>
+
+                <div class="detail-box">
+                    <div class="detail-label">Order Date</div>
+                    <div class="detail-value">
+                        {{ item.order.created_at|date:"d M Y" }}
+                    </div>
+                </div>
+
+                <div class="detail-box address">
+                    <div class="detail-label">Delivery Address</div>
+                    <div class="detail-value">
+                        {{ item.order.shipping_address }}
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="status-box">
+                Current Vendor Status:
+                <span>{{ item.get_vendor_status_display }}</span>
+            </div>
+
+            <div class="update-section">
+
+                <h3>✦ Update Order Status</h3>
+
+                <form method="POST"
+                      action="{% url 'update_vendor_order_status' item.id %}"
+                      class="update-form">
+
+                    {% csrf_token %}
+
+                    <select name="vendor_status" required>
+
+                        <option value="pending"
+                            {% if item.vendor_status == 'pending' %}selected{% endif %}>
+                            Pending
+                        </option>
+
+                        <option value="confirmed"
+                            {% if item.vendor_status == 'confirmed' %}selected{% endif %}>
+                            Confirmed
+                        </option>
+
+                        <option value="shipped"
+                            {% if item.vendor_status == 'shipped' %}selected{% endif %}>
+                            Shipped
+                        </option>
+
+                        <option value="delivered"
+                            {% if item.vendor_status == 'delivered' %}selected{% endif %}>
+                            Delivered
+                        </option>
+
+                        <option value="cancelled"
+                            {% if item.vendor_status == 'cancelled' %}selected{% endif %}>
+                            Cancelled
+                        </option>
+
+                    </select>
+
+                    <button type="submit" class="update-btn">
+                        ✓ Update Status
+                    </button>
+
+                </form>
+
+            </div>
+
+        </div>
+
+    {% empty %}
+
+        <div class="empty-state">
+            <div>📭</div>
+            <h2>No Orders Yet</h2>
+            <p>You haven't received any customer orders yet.</p>
+        </div>
+
+    {% endfor %}
+
+    <div class="back-wrapper">
+        <a href="/vendor/dashboard/" class="back-btn">
+            ← Back to Dashboard
+        </a>
+    </div>
+
+</div>
+
+</body>
+</html>
+```

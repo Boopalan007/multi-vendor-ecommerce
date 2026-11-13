@@ -1,0 +1,233 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Account | MultiVendor</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 35px 18px;
+            background:
+                radial-gradient(circle at 10% 15%, #164E63 0, transparent 35%),
+                radial-gradient(circle at 90% 85%, #0F766E 0, transparent 35%),
+                #0B1120;
+        }
+
+        .register-box {
+            width: 100%;
+            max-width: 480px;
+            padding: 42px;
+            background: rgba(255, 255, 255, 0.97);
+            border: 1px solid rgba(255,255,255,0.4);
+            border-radius: 24px;
+            box-shadow: 0 30px 80px rgba(0,0,0,0.35);
+        }
+
+        .brand {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 27px;
+            font-weight: 700;
+            color: #111827;
+            letter-spacing: -1px;
+            text-align: center;
+            margin-bottom: 28px;
+        }
+
+        .brand span {
+            color: #0D9488;
+        }
+
+        .top-icon {
+            width: 62px;
+            height: 62px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0 auto 18px;
+            border-radius: 19px;
+            background: #CCFBF1;
+            color: #0F766E;
+            font-size: 28px;
+        }
+
+        h2 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 32px;
+            font-weight: 700;
+            color: #111827;
+            text-align: center;
+            letter-spacing: -1px;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #64748B;
+            font-size: 14px;
+            margin-top: 9px;
+            margin-bottom: 30px;
+            line-height: 1.6;
+        }
+
+        form p {
+            margin-bottom: 18px;
+            color: #334155;
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        form input {
+            display: block;
+            width: 100%;
+            padding: 14px 15px;
+            margin-top: 9px;
+            border: 1px solid #CBD5E1;
+            border-radius: 11px;
+            background: #F8FAFC;
+            color: #111827;
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            outline: none;
+            transition: 0.25s;
+        }
+
+        form input:focus {
+            border-color: #14B8A6;
+            background: white;
+            box-shadow: 0 0 0 4px rgba(20,184,166,0.12);
+        }
+
+        .helptext {
+            display: block;
+            color: #64748B;
+            font-size: 11px;
+            font-weight: 400;
+            margin-top: 7px;
+            line-height: 1.6;
+        }
+
+        .errorlist {
+            list-style: none;
+            color: #DC2626;
+            font-size: 12px;
+            font-weight: 500;
+            margin-top: 7px;
+        }
+
+        button {
+            width: 100%;
+            padding: 16px;
+            margin-top: 10px;
+            border: none;
+            border-radius: 11px;
+            background: linear-gradient(110deg, #0F766E, #14B8A6);
+            color: white;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 16px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            cursor: pointer;
+            box-shadow: 0 8px 20px rgba(13,148,136,0.22);
+            transition: 0.3s;
+        }
+
+        button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 28px rgba(13,148,136,0.35);
+        }
+
+        .login-link {
+            text-align: center;
+            margin-top: 25px;
+            color: #64748B;
+            font-size: 13px;
+        }
+
+        .login-link a {
+            color: #0F766E;
+            text-decoration: none;
+            font-weight: 700;
+        }
+
+        .login-link a:hover {
+            color: #14B8A6;
+        }
+
+        .back-home {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+            color: #64748B;
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        .back-home:hover {
+            color: #0F766E;
+        }
+
+        @media (max-width: 500px) {
+            .register-box {
+                padding: 30px 22px;
+            }
+
+            h2 {
+                font-size: 27px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="register-box">
+
+        <div class="brand">Multi<span>Vendor.</span></div>
+
+        <div class="top-icon">✦</div>
+
+        <h2>Create Account</h2>
+
+        <p class="subtitle">
+            Your next shopping experience starts here.
+            Create your account today.
+        </p>
+
+        <form method="POST">
+            {% csrf_token %}
+
+            {{ form.as_p }}
+
+            <button type="submit">
+                CREATE ACCOUNT →
+            </button>
+        </form>
+
+        <p class="login-link">
+            Already have an account?
+            <a href="{% url 'login' %}">Sign In</a>
+        </p>
+
+        <a href="/" class="back-home">
+            ← Back to Home
+        </a>
+
+    </div>
+
+</body>
+</html>

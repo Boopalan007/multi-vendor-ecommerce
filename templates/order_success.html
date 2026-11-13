@@ -1,0 +1,74 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Order Successful</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f5f6fa;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .success-container {
+            max-width: 600px;
+            margin: 80px auto;
+            background: white;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 2px 15px #ddd;
+        }
+
+        .success-icon {
+            font-size: 65px;
+            color: green;
+        }
+
+        h1 {
+            color: #166534;
+        }
+
+        p {
+            color: #555;
+            font-size: 17px;
+        }
+
+        a {
+            display: inline-block;
+            background: #2563eb;
+            color: white;
+            padding: 12px 25px;
+            text-decoration: none;
+            border-radius: 5px;
+            margin-top: 15px;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="success-container">
+
+    <div class="success-icon">✓</div>
+
+    <h1>Order Placed Successfully!</h1>
+
+    <p>Thank you for shopping with MultiVendor.</p>
+
+    <h3>Order ID: #{{ order.id }}</h3>
+
+    <h3>Total Amount: ₹{{ order.total_amount }}</h3>
+
+    <p>Order Status: {{ order.status|title }}</p>
+
+    <a href="/products/">Continue Shopping</a>
+
+</div>
+
+</body>
+</html>

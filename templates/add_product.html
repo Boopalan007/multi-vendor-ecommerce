@@ -1,0 +1,366 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Add Product - MultiVendor</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background: linear-gradient(135deg, #fff0e8, #ffe4ed, #fff5d9);
+            min-height: 100vh;
+            padding: 40px 18px;
+            color: #713c34;
+        }
+
+        .container {
+            max-width: 680px;
+            margin: 25px auto;
+            background: #ffffff;
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: 0 18px 45px rgba(190, 75, 50, 0.13);
+            border: 1px solid #ffe0d4;
+        }
+
+        /* HEADER */
+
+        .header {
+            background: linear-gradient(120deg, #9f1239, #e11d48, #f97316);
+            padding: 40px 25px;
+            text-align: center;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: "";
+            position: absolute;
+            width: 230px;
+            height: 230px;
+            border: 1px solid rgba(255,255,255,0.18);
+            border-radius: 50%;
+            right: -65px;
+            top: -130px;
+        }
+
+        .header::after {
+            content: "";
+            position: absolute;
+            width: 170px;
+            height: 170px;
+            border: 1px solid rgba(255,255,255,0.15);
+            border-radius: 50%;
+            left: -60px;
+            bottom: -110px;
+        }
+
+        .header-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .icon {
+            font-size: 43px;
+            margin-bottom: 12px;
+        }
+
+        h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 35px;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            color: #ffe4e6;
+            font-size: 13px;
+        }
+
+        /* FORM CONTENT */
+
+        .form-content {
+            padding: 32px;
+        }
+
+        .intro-card {
+            background: linear-gradient(120deg, #fff1e8, #ffe9ef);
+            border: 1px solid #ffd9cb;
+            border-radius: 14px;
+            padding: 18px;
+            margin-bottom: 27px;
+        }
+
+        .intro-card h3 {
+            font-family: 'Playfair Display', serif;
+            color: #be123c;
+            font-size: 20px;
+            margin-bottom: 7px;
+        }
+
+        .intro-card p {
+            color: #96645b;
+            font-size: 13px;
+            line-height: 1.7;
+        }
+
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            color: #be123c;
+            font-size: 21px;
+            margin-bottom: 20px;
+        }
+
+        /* DJANGO FORM */
+
+        form p {
+            margin-bottom: 21px;
+        }
+
+        form p label {
+            display: block;
+            color: #813d38;
+            font-size: 13px;
+            font-weight: 800;
+            margin-bottom: 8px;
+        }
+
+        input:not([type="checkbox"]):not([type="radio"]):not([type="file"]),
+        textarea,
+        select {
+            width: 100%;
+            padding: 13px 14px;
+            margin-top: 7px;
+            border: 1px solid #f4c8bd;
+            border-radius: 11px;
+            background: #fffaf8;
+            color: #713c34;
+            font-family: 'DM Sans', sans-serif;
+            font-size: 14px;
+            outline: none;
+            transition: 0.3s;
+        }
+
+        input:focus,
+        textarea:focus,
+        select:focus {
+            border-color: #f97316;
+            background: white;
+            box-shadow: 0 0 0 4px rgba(249,115,22,0.12);
+        }
+
+        textarea {
+            min-height: 110px;
+            resize: vertical;
+        }
+
+        input[type="file"] {
+            display: block;
+            width: 100%;
+            margin-top: 8px;
+            padding: 12px;
+            background: #fff1e8;
+            border: 1px dashed #fb923c;
+            border-radius: 10px;
+            color: #be123c;
+            font-family: 'DM Sans', sans-serif;
+        }
+
+        input[type="checkbox"],
+        input[type="radio"] {
+            accent-color: #e11d48;
+        }
+
+        .helptext {
+            display: block;
+            color: #a17c72;
+            font-size: 11px;
+            margin-top: 6px;
+        }
+
+        ul.errorlist {
+            color: #be123c;
+            background: #fff1f2;
+            border-radius: 8px;
+            padding: 10px 28px;
+            margin-top: 8px;
+            font-size: 12px;
+        }
+
+        /* DJANGO MESSAGES */
+
+        .messages p {
+            padding: 13px 15px;
+            border-radius: 10px;
+            margin-bottom: 12px;
+            font-size: 13px;
+            font-weight: 700;
+        }
+
+        .success {
+            color: #166534;
+            background: #dcfce7;
+            border-left: 4px solid #16a34a;
+        }
+
+        .error {
+            color: #b91c1c;
+            background: #fee2e2;
+            border-left: 4px solid #dc2626;
+        }
+
+        /* ADD BUTTON */
+
+        button {
+            width: 100%;
+            padding: 15px;
+            margin-top: 10px;
+            background: linear-gradient(110deg, #9f1239, #e11d48, #f97316);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            font-family: 'DM Sans', sans-serif;
+            font-size: 14px;
+            font-weight: 800;
+            transition: 0.3s;
+            box-shadow: 0 7px 18px rgba(225,29,72,0.20);
+        }
+
+        button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 11px 23px rgba(225,29,72,0.28);
+        }
+
+        /* BACK LINK */
+
+        .back {
+            display: block;
+            text-align: center;
+            margin-top: 22px;
+            color: #e11d48;
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 800;
+            transition: 0.3s;
+        }
+
+        .back:hover {
+            color: #9f1239;
+        }
+
+        .footer-note {
+            text-align: center;
+            color: #b28c81;
+            font-size: 11px;
+            margin-top: 28px;
+        }
+
+        @media (max-width: 550px) {
+            body {
+                padding: 18px 10px;
+            }
+
+            .container {
+                margin: 10px auto;
+            }
+
+            .header {
+                padding: 30px 18px;
+            }
+
+            h1 {
+                font-size: 29px;
+            }
+
+            .form-content {
+                padding: 22px 18px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <!-- PAGE HEADER -->
+
+    <div class="header">
+
+        <div class="header-content">
+
+            <div class="icon">✦</div>
+
+            <h1>Add New Product</h1>
+
+            <p>Bring your products to life and grow your online store.</p>
+
+        </div>
+
+    </div>
+
+    <!-- FORM -->
+
+    <div class="form-content">
+
+        <div class="intro-card">
+
+            <h3>✨ Create Your Product Listing</h3>
+
+            <p>
+                Add your product details, upload a product image,
+                set your price and stock, and make your product
+                available in the MultiVendor marketplace.
+            </p>
+
+        </div>
+
+        {% if messages %}
+            <div class="messages">
+                {% for message in messages %}
+                    <p class="{{ message.tags }}">{{ message }}</p>
+                {% endfor %}
+            </div>
+        {% endif %}
+
+        <h2 class="section-title">✦ Product Information</h2>
+
+        <form method="POST" enctype="multipart/form-data">
+
+            {% csrf_token %}
+
+            {{ form.as_p }}
+
+            <button type="submit">
+                + Add Product to My Store
+            </button>
+
+        </form>
+
+        <a href="{% url 'vendor_dashboard' %}" class="back">
+            ← Back to Vendor Dashboard
+        </a>
+
+        <div class="footer-note">
+            MultiVendor Marketplace · Seller Management
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+</html>
+```

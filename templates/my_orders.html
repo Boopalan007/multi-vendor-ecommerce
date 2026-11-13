@@ -1,0 +1,527 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>My Orders | MultiVendor</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(
+                135deg,
+                #FFE4D6 0%,
+                #FCE7F3 45%,
+                #E9D5FF 100%
+            );
+            background-attachment: fixed;
+            color: #1E293B;
+            min-height: 100vh;
+        }
+
+        /* HEADER */
+
+        header {
+            background: rgba(255,255,255,0.90);
+            backdrop-filter: blur(12px);
+            padding: 19px 7%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 20px rgba(30, 58, 138, 0.06);
+        }
+
+        .logo {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 27px;
+            font-weight: 700;
+            color: #1E3A8A;
+            letter-spacing: -1px;
+        }
+
+        .logo span {
+            color: #F97316;
+        }
+
+        nav {
+            display: flex;
+            gap: 24px;
+            flex-wrap: wrap;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #475569;
+            font-size: 13px;
+            font-weight: 600;
+            transition: 0.2s;
+        }
+
+        nav a:hover {
+            color: #E879A5;
+        }
+
+        /* MAIN CONTAINER */
+
+        .container {
+            max-width: 1150px;
+            width: 90%;
+            margin: 45px auto;
+        }
+
+        .heading {
+            margin-bottom: 30px;
+        }
+
+        .heading h1 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 36px;
+            color: #35245E;
+            letter-spacing: -1px;
+        }
+
+        .heading p {
+            color: #766782;
+            margin-top: 9px;
+            font-size: 14px;
+        }
+
+        /* MESSAGES */
+
+        .messages {
+            margin-bottom: 20px;
+        }
+
+        .message {
+            background: #DCFCE7;
+            color: #166534;
+            padding: 13px 17px;
+            border-radius: 10px;
+            margin-bottom: 10px;
+            font-size: 14px;
+        }
+
+        /* ORDER CARD */
+
+        .order-card {
+            background: rgba(255,255,255,0.96);
+            border-radius: 20px;
+            margin-bottom: 25px;
+            overflow: hidden;
+            border: 1px solid rgba(255,255,255,0.8);
+            box-shadow: 0 10px 30px rgba(83, 49, 110, 0.09);
+            transition: 0.3s;
+        }
+
+        .order-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 35px rgba(83, 49, 110, 0.14);
+        }
+
+        .order-header {
+            background: linear-gradient(
+                100deg,
+                #FDE7E7,
+                #F3E8FF,
+                #E0F2FE
+            );
+            padding: 22px 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .order-number {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 20px;
+            font-weight: 700;
+            color: #35245E;
+        }
+
+        .order-date {
+            color: #766782;
+            font-size: 12px;
+            margin-top: 6px;
+        }
+
+        /* STATUS */
+
+        .status {
+            display: inline-block;
+            padding: 8px 15px;
+            border-radius: 25px;
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .status-pending {
+            background: #FEF3C7;
+            color: #B45309;
+        }
+
+        .status-confirmed {
+            background: #DBEAFE;
+            color: #1D4ED8;
+        }
+
+        .status-shipped {
+            background: #EDE9FE;
+            color: #6D28D9;
+        }
+
+        .status-delivered {
+            background: #DCFCE7;
+            color: #15803D;
+        }
+
+        .status-cancelled {
+            background: #FEE2E2;
+            color: #B91C1C;
+        }
+
+        /* ORDER BODY */
+
+        .order-body {
+            padding: 25px;
+        }
+
+        .section-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 17px;
+            color: #35245E;
+            margin-bottom: 18px;
+        }
+
+        .product-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+            padding: 17px 0;
+            border-bottom: 1px solid #F1EAF5;
+        }
+
+        .product-row:last-child {
+            border-bottom: none;
+        }
+
+        .product-name {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 16px;
+            font-weight: 600;
+            color: #1E293B;
+        }
+
+        .product-details {
+            font-size: 12px;
+            color: #766782;
+            margin-top: 6px;
+            line-height: 1.8;
+        }
+
+        .vendor-status {
+            display: inline-block;
+            margin-top: 7px;
+            padding: 5px 10px;
+            border-radius: 20px;
+            background: #F3E8FF;
+            color: #7E22CE;
+            font-size: 10px;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        .product-price {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 17px;
+            font-weight: 700;
+            color: #0F9F6E;
+            white-space: nowrap;
+        }
+
+        /* ORDER FOOTER */
+
+        .order-footer {
+            background: #FFF9FC;
+            padding: 20px 25px;
+            border-top: 1px solid #F1EAF5;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .total-label {
+            font-size: 13px;
+            color: #766782;
+        }
+
+        .total-amount {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 25px;
+            font-weight: 700;
+            color: #35245E;
+            margin-top: 5px;
+        }
+
+        .cancel-btn {
+            background: #FFF1F2;
+            color: #E11D48;
+            border: 1px solid #FECDD3;
+            padding: 10px 17px;
+            border-radius: 9px;
+            font-size: 12px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .cancel-btn:hover {
+            background: #FFE4E6;
+            transform: translateY(-2px);
+        }
+
+        /* EMPTY ORDERS */
+
+        .empty-orders {
+            background: rgba(255,255,255,0.95);
+            padding: 75px 20px;
+            text-align: center;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(83, 49, 110, 0.08);
+        }
+
+        .empty-icon {
+            font-size: 65px;
+            margin-bottom: 20px;
+        }
+
+        .empty-orders h2 {
+            font-family: 'Space Grotesk', sans-serif;
+            color: #35245E;
+            font-size: 27px;
+        }
+
+        .empty-orders p {
+            color: #766782;
+            font-size: 14px;
+            margin: 12px 0 25px;
+        }
+
+        .shop-btn {
+            display: inline-block;
+            padding: 14px 25px;
+            background: linear-gradient(100deg, #EC4899, #A855F7);
+            color: white;
+            border-radius: 10px;
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 700;
+            transition: 0.2s;
+        }
+
+        .shop-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 18px rgba(168,85,247,0.25);
+        }
+
+        /* MOBILE */
+
+        @media(max-width: 600px) {
+            header {
+                padding: 17px 5%;
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 15px;
+            }
+
+            nav {
+                gap: 13px;
+            }
+
+            nav a {
+                font-size: 11px;
+            }
+
+            .container {
+                width: 94%;
+                margin: 30px auto;
+            }
+
+            .heading h1 {
+                font-size: 29px;
+            }
+
+            .order-header,
+            .order-body,
+            .order-footer {
+                padding: 18px;
+            }
+
+            .product-row {
+                align-items: flex-start;
+            }
+
+            .product-price {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <div class="logo">Multi<span>Vendor.</span></div>
+
+    <nav>
+        <a href="/">Home</a>
+        <a href="{% url 'products' %}">Products</a>
+        <a href="{% url 'cart' %}">My Cart</a>
+        <a href="{% url 'my_orders' %}">My Orders</a>
+        <a href="{% url 'customer_profile' %}">My Profile</a>
+        <a href="{% url 'logout' %}">Logout</a>
+    </nav>
+</header>
+
+<div class="container">
+
+    <div class="heading">
+        <h1>My Orders 📦</h1>
+        <p>Track your purchases and check your order details.</p>
+    </div>
+
+    {% if messages %}
+        <div class="messages">
+            {% for message in messages %}
+                <div class="message">{{ message }}</div>
+            {% endfor %}
+        </div>
+    {% endif %}
+
+    {% if orders %}
+
+        {% for order in orders %}
+
+        <div class="order-card">
+
+            <div class="order-header">
+
+                <div>
+                    <div class="order-number">
+                        Order #{{ order.id }}
+                    </div>
+
+                    <div class="order-date">
+                        Ordered on: {{ order.created_at|date:"d M Y, h:i A" }}
+                    </div>
+                </div>
+
+                <span class="status status-{{ order.status }}">
+                    {{ order.get_status_display }}
+                </span>
+
+            </div>
+
+            <div class="order-body">
+
+                <h3 class="section-title">Order Items</h3>
+
+                {% for item in order.items.all %}
+
+                <div class="product-row">
+
+                    <div>
+                        <div class="product-name">
+                            {{ item.product.name }}
+                        </div>
+
+                        <div class="product-details">
+                            Price: ₹{{ item.price }}<br>
+                            Quantity: {{ item.quantity }}
+                        </div>
+
+                        <span class="vendor-status">
+                            Vendor: {{ item.get_vendor_status_display }}
+                        </span>
+                    </div>
+
+                    <div class="product-price">
+                        ₹{% widthratio item.price 1 item.quantity %}
+                    </div>
+
+                </div>
+
+                {% endfor %}
+
+            </div>
+
+            <div class="order-footer">
+
+                <div>
+                    <div class="total-label">Order Total</div>
+
+                    <div class="total-amount">
+                        ₹{{ order.total_amount }}
+                    </div>
+                </div>
+
+                {% if order.can_cancel %}
+
+                <form method="POST"
+                      action="{% url 'cancel_order' order.id %}"
+                      onsubmit="return confirm('Are you sure you want to cancel this order?');">
+
+                    {% csrf_token %}
+
+                    <button type="submit" class="cancel-btn">
+                        ✕ Cancel Order
+                    </button>
+
+                </form>
+
+                {% endif %}
+
+            </div>
+
+        </div>
+
+        {% endfor %}
+
+    {% else %}
+
+        <div class="empty-orders">
+
+            <div class="empty-icon">📦</div>
+
+            <h2>No Orders Yet!</h2>
+
+            <p>Your shopping journey is waiting. Explore products and place your first order.</p>
+
+            <a href="{% url 'products' %}" class="shop-btn">
+                START SHOPPING →
+            </a>
+
+        </div>
+
+    {% endif %}
+
+</div>
+
+</body>
+</html>

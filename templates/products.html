@@ -1,0 +1,808 @@
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Products | MultiVendor</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background: #f8f5f0;
+            color: #171b2d;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        /* NAVBAR */
+
+        .navbar {
+            background: linear-gradient(115deg, #211713, #3b2920 58%, #5a3b28);
+            padding: 19px 7%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            border-bottom: 1px solid rgba(226,190,132,.35);
+            box-shadow: 0 8px 25px rgba(38,24,17,.15);
+        }
+
+        .logo, .footer-logo {
+            font-family: 'Outfit', sans-serif;
+            font-size: 29px;
+            font-weight: 800;
+            color: #fff;
+        }
+
+        .logo span, .footer-logo span {
+            color: #e5bd78;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 25px;
+            flex-wrap: wrap;
+        }
+
+        .nav-links a {
+            color: #f4e9dc;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: .7px;
+            transition: .25s;
+        }
+
+        .nav-links a:hover {
+            color: #f0c982;
+        }
+
+        /* HERO */
+
+        .hero {
+            min-height: 340px;
+            padding: 75px 8%;
+            background:
+                radial-gradient(circle at 85% 20%, rgba(211,166,100,.25), transparent 35%),
+                linear-gradient(120deg, #211713, #3b2920 65%, #65452e);
+            display: flex;
+            align-items: center;
+            color: white;
+        }
+
+        .hero-content {
+            max-width: 620px;
+        }
+
+        .hero-tag {
+            color: #e8c487;
+            font-size: 11px;
+            font-weight: 800;
+            letter-spacing: 4px;
+        }
+
+        .hero h1 {
+            font-family: 'Outfit', sans-serif;
+            font-size: clamp(42px, 6vw, 65px);
+            font-weight: 800;
+            line-height: 1.12;
+            margin: 18px 0;
+        }
+
+        .hero h1 span {
+            color: #edc985;
+        }
+
+        .hero p {
+            max-width: 480px;
+            color: #e4d8ca;
+            font-size: 14px;
+            line-height: 1.9;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            margin-top: 25px;
+            background: #d4a45f;
+            padding: 12px 21px;
+            color: #281b14;
+            font-size: 11px;
+            font-weight: 800;
+            letter-spacing: 1.5px;
+            border-radius: 4px;
+        }
+
+        /* SECTION */
+
+        .section-heading {
+            padding: 55px 7% 20px;
+        }
+
+        .small-title {
+            color: #a8753d;
+            font-size: 11px;
+            letter-spacing: 3px;
+            font-weight: 800;
+        }
+
+        .section-heading h2 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 36px;
+            color: #211713;
+            margin-top: 9px;
+        }
+
+        .section-heading p {
+            color: #737887;
+            font-size: 13px;
+            margin-top: 8px;
+        }
+
+        /* FILTER */
+
+        .filter-section {
+            padding: 15px 7% 35px;
+        }
+
+        .filter-box {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 20px;
+            background: white;
+            border: 1px solid #eadfce;
+            border-radius: 12px;
+            box-shadow: 0 8px 25px rgba(49,34,22,.06);
+            flex-wrap: wrap;
+        }
+
+        .filter-box input,
+        .filter-box select {
+            padding: 14px 15px;
+            border: 1px solid #e5ddd2;
+            border-radius: 7px;
+            background: #fdfbf8;
+            font-family: 'DM Sans', sans-serif;
+            font-size: 13px;
+            outline: none;
+        }
+
+        .filter-box input {
+            flex: 1;
+            min-width: 190px;
+        }
+
+        .filter-box select {
+            min-width: 190px;
+        }
+
+        .filter-box input:focus,
+        .filter-box select:focus {
+            border-color: #b9874b;
+        }
+
+        .search-btn,
+        .cart-btn {
+            background: linear-gradient(110deg, #9a6838, #d3a45f);
+            color: #241810;
+            border: 0;
+            padding: 15px 25px;
+            border-radius: 7px;
+            font-family: 'Outfit', sans-serif;
+            font-size: 12px;
+            font-weight: 800;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: .25s;
+        }
+
+        .search-btn:hover,
+        .cart-btn:hover {
+            background: #38251b;
+            color: #fff;
+        }
+
+        /* PRODUCTS */
+
+        .products-section {
+            padding: 0 7% 75px;
+        }
+
+        .product-count {
+            color: #747887;
+            font-size: 13px;
+            margin-bottom: 22px;
+        }
+
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 25px;
+        }
+
+        .product-card {
+            background: white;
+            border-radius: 13px;
+            overflow: hidden;
+            border: 1px solid #eadfce;
+            box-shadow: 0 6px 22px rgba(49,34,22,.05);
+            transition: .3s ease;
+        }
+
+        .product-card:hover {
+            transform: translateY(-7px);
+            box-shadow: 0 16px 35px rgba(49,34,22,.14);
+        }
+
+        /* PRODUCT IMAGES */
+
+        .product-image {
+            height: 265px;
+            background: linear-gradient(145deg, #f3eee6, #e9dfd1);
+            position: relative;
+            overflow: hidden;
+            padding: 12px;
+        }
+
+        .product-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            display: block;
+            transition: .4s;
+        }
+
+        .product-card:hover .product-image img {
+            transform: scale(1.06);
+        }
+
+        .image-label {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            background: #3b2920;
+            color: #f6d99f;
+            padding: 7px 11px;
+            border-radius: 4px;
+            font-size: 9px;
+            font-weight: 800;
+            letter-spacing: 1px;
+            z-index: 2;
+        }
+
+        .no-image {
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #71838d;
+            font-size: 12px;
+        }
+
+        /* PRODUCT DETAILS */
+
+        .product-details {
+            padding: 21px;
+        }
+
+        .category {
+            color: #a8753d;
+            font-size: 10px;
+            font-weight: 800;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .product-name {
+            font-family: 'Outfit', sans-serif;
+            color: #211713;
+            font-size: 22px;
+            font-weight: 700;
+            margin: 9px 0;
+        }
+
+        .description {
+            color: #747887;
+            font-size: 12px;
+            line-height: 1.8;
+            min-height: 42px;
+        }
+
+        .rating {
+            margin-top: 13px;
+            color: #d99b28;
+            font-size: 13px;
+            font-weight: 800;
+        }
+
+        .price-stock {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 10px;
+            margin: 18px 0;
+        }
+
+        .price {
+            color: #211713;
+            font-family: 'Outfit', sans-serif;
+            font-size: 25px;
+            font-weight: 800;
+        }
+
+        .stock {
+            color: #16845d;
+            background: #e5f6ed;
+            padding: 7px 9px;
+            border-radius: 5px;
+            font-size: 9px;
+            font-weight: 800;
+        }
+
+        .out-stock {
+            color: #a33e32;
+            background: #fbe9e5;
+        }
+
+        .cart-btn {
+            display: block;
+            width: 100%;
+            padding: 14px;
+        }
+
+        .review-link {
+            display: block;
+            text-align: center;
+            margin-top: 14px;
+            color: #a8753d;
+            font-size: 11px;
+            font-weight: 800;
+        }
+
+        .review-link:hover {
+            color: #38251b;
+        }
+
+        /* REVIEWS */
+
+        .reviews {
+            border-top: 1px solid #eee5d9;
+            margin-top: 18px;
+            padding-top: 15px;
+        }
+
+        .reviews h4 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 16px;
+            color: #211713;
+            margin-bottom: 10px;
+        }
+
+        .review-item {
+            padding: 11px;
+            margin-top: 8px;
+            background: #f8f4ed;
+            border-radius: 7px;
+            font-size: 11px;
+            line-height: 1.7;
+            color: #737887;
+        }
+
+        .review-item strong {
+            color: #211713;
+        }
+
+        .empty {
+            grid-column: 1 / -1;
+            padding: 60px 20px;
+            background: white;
+            border-radius: 12px;
+            text-align: center;
+        }
+
+        .empty h3 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 27px;
+            color: #211713;
+            margin-bottom: 10px;
+        }
+
+        .empty p {
+            color: #737887;
+            font-size: 13px;
+        }
+
+        /* BOTTOM BANNER */
+
+        .bottom-banner {
+            margin: 0 7% 65px;
+            padding: 35px;
+            background: linear-gradient(110deg, #2b1c15, #65452e, #a8753d);
+            color: white;
+            border-radius: 13px;
+            text-align: center;
+        }
+
+        .bottom-banner h2 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 28px;
+        }
+
+        .bottom-banner p {
+            color: #f0dfc8;
+            font-size: 13px;
+            margin-top: 9px;
+        }
+
+        /* FOOTER */
+
+        footer {
+            background: linear-gradient(115deg, #1d1410, #35241b 60%, #543824);
+            color: #e8ded2;
+            padding: 45px 7%;
+            text-align: center;
+            border-top: 3px solid #c99a5b;
+        }
+
+        .footer-logo {
+            font-size: 27px;
+        }
+
+        footer p {
+            font-size: 12px;
+            margin-top: 10px;
+            color: #cbbbaa;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 22px;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+
+        .footer-links a {
+            font-size: 11px;
+            font-weight: 700;
+            color: #e8c487;
+        }
+
+        .footer-links a:hover {
+            color: #fff;
+        }
+
+        /* RESPONSIVE */
+
+        @media(max-width: 900px) {
+            .product-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+        }
+
+        @media(max-width: 600px) {
+            .navbar {
+                padding: 18px 5%;
+            }
+
+            .nav-links {
+                gap: 13px;
+            }
+
+            .hero {
+                padding: 55px 7%;
+            }
+
+            .section-heading h2 {
+                font-size: 29px;
+            }
+
+            .product-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .filter-section,
+            .products-section,
+            .section-heading {
+                padding-left: 5%;
+                padding-right: 5%;
+            }
+
+            .bottom-banner {
+                margin-left: 5%;
+                margin-right: 5%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+
+<nav class="navbar">
+    <a href="{% url 'home' %}" class="logo">
+        Multi<span>Vendor.</span>
+    </a>
+
+    <div class="nav-links">
+        <a href="{% url 'home' %}">HOME</a>
+        <a href="{% url 'products' %}">PRODUCTS</a>
+        <a href="{% url 'cart' %}">MY CART</a>
+        <a href="{% url 'my_orders' %}">MY ORDERS</a>
+
+        {% if user.is_authenticated %}
+            <a href="{% url 'customer_profile' %}">PROFILE</a>
+            <a href="{% url 'logout' %}">LOGOUT</a>
+        {% else %}
+            <a href="{% url 'login' %}">LOGIN</a>
+        {% endif %}
+    </div>
+</nav>
+
+<!-- HERO -->
+
+<section class="hero">
+    <div class="hero-content">
+        <div class="hero-tag">WELCOME TO OUR STORE</div>
+
+        <h1>
+            SHOP SMARTER.<br>
+            LIVE <span>BETTER.</span>
+        </h1>
+
+        <p>
+            Discover exciting products, explore different categories
+            and find everything you love in one place.
+            Your shopping journey starts here.
+        </p>
+
+        <div class="hero-badge">
+            EXPLORE OUR COLLECTION
+        </div>
+    </div>
+</section>
+
+<!-- SECTION TITLE -->
+
+<section class="section-heading">
+    <div class="small-title">HANDPICKED FOR YOU</div>
+    <h2>Featured Products</h2>
+    <p>Explore our latest collection from trusted sellers.</p>
+</section>
+
+<!-- SEARCH AND FILTER -->
+
+<section class="filter-section">
+    <form method="GET" action="{% url 'products' %}" class="filter-box">
+
+        <input
+            type="text"
+            name="q"
+            placeholder="Search your favourite products..."
+            value="{{ request.GET.q|default:'' }}"
+        >
+
+        <select name="category">
+            <option value="">All Categories</option>
+            <option value="electronics" {% if selected_category == 'electronics' %}selected{% endif %}>Electronics</option>
+            <option value="fashion" {% if selected_category == 'fashion' %}selected{% endif %}>Fashion</option>
+            <option value="home_kitchen" {% if selected_category == 'home_kitchen' %}selected{% endif %}>Home &amp; Kitchen</option>
+            <option value="accessories" {% if selected_category == 'accessories' %}selected{% endif %}>Accessories</option>
+            <option value="beauty" {% if selected_category == 'beauty' %}selected{% endif %}>Beauty &amp; Personal Care</option>
+            <option value="sports" {% if selected_category == 'sports' %}selected{% endif %}>Sports &amp; Fitness</option>
+            <option value="books" {% if selected_category == 'books' %}selected{% endif %}>Books</option>
+            <option value="other" {% if selected_category == 'other' %}selected{% endif %}>Other</option>
+        </select>
+
+        <button type="submit" class="search-btn">
+            SEARCH PRODUCTS
+        </button>
+    </form>
+</section>
+
+<!-- PRODUCTS -->
+
+<section class="products-section">
+
+    <p class="product-count">
+        Discover products selected for your lifestyle.
+    </p>
+
+    <div class="product-grid">
+
+        {% for product in products %}
+
+        <div class="product-card">
+
+            <div class="product-image">
+
+                <div class="image-label">OUR COLLECTION</div>
+
+                {% with product_name=product.name|lower %}
+
+                    {% if 'headphone' in product_name %}
+
+                        <img src="{% static 'products/bluetooth-headphones.jpg' %}" alt="Bluetooth Headphones">
+
+                    {% elif 'watch' in product_name %}
+
+                        <img src="{% static 'products/smartwatch.webp' %}" alt="Smartwatch">
+
+                    {% elif 'earbud' in product_name %}
+
+                        <img src="{% static 'products/wireless-earbuds.jpg' %}" alt="Wireless Earbuds">
+
+                    {% elif 'mouse' in product_name %}
+
+                        <img src="{% static 'products/wireless-mouse.jpg' %}" alt="Wireless Mouse">
+
+                    {% elif product.image %}
+
+                        <img src="{{ product.image.url }}" alt="{{ product.name }}">
+
+                    {% else %}
+
+                        <div class="no-image">
+                            <span>Image not available</span>
+                        </div>
+
+                    {% endif %}
+
+                {% endwith %}
+
+            </div>
+
+            <!-- PRODUCT DETAILS -->
+
+            <div class="product-details">
+
+                <div class="category">
+                    {{ product.get_category_display }}
+                </div>
+
+                <h3 class="product-name">
+                    {{ product.name }}
+                </h3>
+
+                <p class="description">
+                    {{ product.description|truncatewords:15 }}
+                </p>
+
+                <div class="rating">
+
+                    {% if product.average_rating %}
+                        ★ {{ product.average_rating|floatformat:1 }} / 5
+                    {% else %}
+                        ☆ No ratings yet
+                    {% endif %}
+
+                </div>
+
+                <div class="price-stock">
+
+                    <div class="price">
+                        ₹{{ product.price }}
+                    </div>
+
+                    {% if product.stock > 0 %}
+                        <div class="stock">IN STOCK</div>
+                    {% else %}
+                        <div class="stock out-stock">OUT OF STOCK</div>
+                    {% endif %}
+
+                </div>
+
+                {% if product.stock > 0 %}
+
+                    <form method="POST" action="{% url 'add_to_cart' product.id %}">
+                        {% csrf_token %}
+
+                        <button type="submit" class="cart-btn">
+                            ADD TO CART +
+                        </button>
+                    </form>
+
+                {% else %}
+
+                    <button class="cart-btn" disabled style="opacity:.5;cursor:not-allowed;">
+                        CURRENTLY UNAVAILABLE
+                    </button>
+
+                {% endif %}
+
+                <a href="{% url 'add_review' product.id %}" class="review-link">
+                    WRITE A REVIEW →
+                </a>
+
+                {% with review_list=product.reviews.all %}
+
+                    {% if review_list %}
+
+                        <div class="reviews">
+
+                            <h4>Customer Reviews</h4>
+
+                            {% for review in review_list|slice:":2" %}
+
+                                <div class="review-item">
+
+                                    <strong>{{ review.customer.username }}</strong>
+
+                                    <div style="color:#d99b28;">
+                                        {% for i in "12345" %}
+                                            {% if forloop.counter <= review.rating %}★{% else %}☆{% endif %}
+                                        {% endfor %}
+                                    </div>
+
+                                    {{ review.comment|default:"No comment provided." }}
+
+                                </div>
+
+                            {% endfor %}
+
+                        </div>
+
+                    {% endif %}
+
+                {% endwith %}
+
+            </div>
+        </div>
+
+        {% empty %}
+
+            <div class="empty">
+                <h3>No Products Found</h3>
+                <p>Try searching with another product name or category.</p>
+            </div>
+
+        {% endfor %}
+
+    </div>
+</section>
+
+<!-- BOTTOM BANNER -->
+
+<section class="bottom-banner">
+    <h2>Find Your Next Favourite Product.</h2>
+    <p>Great products. Trusted sellers. Better shopping.</p>
+</section>
+
+<!-- FOOTER -->
+
+<footer>
+
+    <div class="footer-logo">
+        Multi<span>Vendor.</span>
+    </div>
+
+    <p>Shop Smart. Discover More. Live Better.</p>
+
+    <div class="footer-links">
+        <a href="{% url 'home' %}">HOME</a>
+        <a href="{% url 'products' %}">PRODUCTS</a>
+        <a href="{% url 'cart' %}">MY CART</a>
+        <a href="{% url 'my_orders' %}">MY ORDERS</a>
+    </div>
+
+    <p>© 2026 MultiVendor. All Rights Reserved.</p>
+
+</footer>
+
+</body>
+</html>

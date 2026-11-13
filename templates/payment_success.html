@@ -1,0 +1,337 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Payment Confirmed | MultiVendor</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            padding: 40px 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'DM Sans', sans-serif;
+            background:
+                radial-gradient(circle at 10% 10%, #d9f0df, transparent 32%),
+                radial-gradient(circle at 90% 90%, #f5e6ce, transparent 32%),
+                linear-gradient(135deg, #f5f8f1, #f9f4eb);
+            color: #263a30;
+        }
+
+        .success-card {
+            width: 100%;
+            max-width: 570px;
+            background: rgba(255,255,255,0.96);
+            border: 1px solid #e5e9df;
+            border-radius: 25px;
+            padding: 40px;
+            text-align: center;
+            box-shadow: 0 25px 70px rgba(36, 75, 49, 0.12);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .success-card::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 7px;
+            background: linear-gradient(90deg, #176b48, #b8a06a, #176b48);
+        }
+
+        .brand {
+            color: #a1834d;
+            font-size: 11px;
+            font-weight: 800;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            margin-bottom: 28px;
+        }
+
+        .success-icon {
+            width: 90px;
+            height: 90px;
+            margin: 0 auto 22px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #dff5e6, #c5ebd2);
+            border: 1px solid #b7dfc3;
+            color: #16834e;
+            font-size: 43px;
+            font-weight: 700;
+            box-shadow: 0 10px 25px rgba(30, 130, 75, 0.12);
+        }
+
+        h1 {
+            font-family: 'Playfair Display', serif;
+            color: #205b3c;
+            font-size: 34px;
+            margin-bottom: 12px;
+        }
+
+        .subtitle {
+            color: #87958b;
+            font-size: 13px;
+            line-height: 1.8;
+            margin-bottom: 28px;
+        }
+
+        .status-pill {
+            display: inline-block;
+            padding: 8px 16px;
+            background: #e7f6eb;
+            border: 1px solid #c8e8d0;
+            border-radius: 30px;
+            color: #277347;
+            font-size: 11px;
+            font-weight: 800;
+            letter-spacing: 1px;
+            margin-bottom: 27px;
+        }
+
+        .receipt {
+            background: #fffdf9;
+            border: 1px solid #eadfce;
+            border-radius: 17px;
+            padding: 23px;
+            text-align: left;
+        }
+
+        .receipt-heading {
+            font-family: 'Playfair Display', serif;
+            font-size: 22px;
+            color: #493a2b;
+            margin-bottom: 5px;
+        }
+
+        .receipt-caption {
+            color: #a09587;
+            font-size: 11px;
+            margin-bottom: 20px;
+        }
+
+        .detail-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+            padding: 13px 0;
+            border-bottom: 1px solid #f0e9df;
+        }
+
+        .detail-row:last-child {
+            border-bottom: none;
+        }
+
+        .detail-label {
+            color: #8d8174;
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        .detail-value {
+            color: #493a2b;
+            font-size: 12px;
+            font-weight: 700;
+            text-align: right;
+            overflow-wrap: anywhere;
+        }
+
+        .amount-row {
+            background: linear-gradient(110deg, #f0f6ed, #faf4e8);
+            border: 1px solid #e6e5d5;
+            border-radius: 13px;
+            margin-top: 17px;
+            padding: 17px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .amount-row span {
+            color: #6f7b6d;
+            font-size: 13px;
+            font-weight: 700;
+        }
+
+        .amount {
+            font-family: 'Playfair Display', serif;
+            color: #226344;
+            font-size: 25px;
+            font-weight: 700;
+        }
+
+        .message-box {
+            margin-top: 22px;
+            padding: 15px;
+            background: #f2f8f2;
+            border: 1px solid #e0eddf;
+            border-radius: 12px;
+            color: #5c7962;
+            font-size: 12px;
+            line-height: 1.8;
+        }
+
+        .buttons {
+            display: flex;
+            gap: 12px;
+            margin-top: 25px;
+        }
+
+        .btn {
+            flex: 1;
+            padding: 14px 10px;
+            border-radius: 11px;
+            text-decoration: none;
+            font-size: 12px;
+            font-weight: 800;
+            letter-spacing: 0.5px;
+            transition: 0.3s;
+        }
+
+        .orders-btn {
+            background: linear-gradient(110deg, #176b48, #32875b);
+            color: white;
+            box-shadow: 0 8px 18px rgba(23, 107, 72, 0.18);
+        }
+
+        .home-btn {
+            background: #f4ecdf;
+            color: #80603c;
+            border: 1px solid #ead9c2;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+        }
+
+        .footer {
+            margin-top: 27px;
+            color: #b0a493;
+            font-size: 10px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        @media(max-width: 520px) {
+            .success-card {
+                padding: 30px 20px;
+            }
+
+            h1 {
+                font-size: 27px;
+            }
+
+            .detail-row {
+                gap: 8px;
+            }
+
+            .buttons {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="success-card">
+
+    <div class="brand">MultiVendor Premium</div>
+
+    <div class="success-icon">✓</div>
+
+    <h1>Payment Confirmed!</h1>
+
+    <p class="subtitle">
+        Your payment method has been successfully recorded.
+        Thank you for shopping with MultiVendor.
+    </p>
+
+    <div class="status-pill">
+        ✦ PAYMENT METHOD CONFIRMED
+    </div>
+
+    <div class="receipt">
+
+        <h2 class="receipt-heading">Payment Receipt</h2>
+
+        <p class="receipt-caption">
+            Your transaction information
+        </p>
+
+        <div class="detail-row">
+            <span class="detail-label">Payment ID</span>
+            <span class="detail-value">#{{ payment.id }}</span>
+        </div>
+
+        <div class="detail-row">
+            <span class="detail-label">Order ID</span>
+            <span class="detail-value">#{{ payment.order.id }}</span>
+        </div>
+
+        <div class="detail-row">
+            <span class="detail-label">Payment Method</span>
+            <span class="detail-value">
+                {{ payment.get_payment_method_display }}
+            </span>
+        </div>
+
+        <div class="detail-row">
+            <span class="detail-label">Payment Status</span>
+            <span class="detail-value">
+                {{ payment.get_status_display }}
+            </span>
+        </div>
+
+        <div class="amount-row">
+            <span>Total Amount</span>
+            <strong class="amount">
+                ₹{{ payment.amount|floatformat:2 }}
+            </strong>
+        </div>
+
+    </div>
+
+    <div class="message-box">
+        ✨ Your order details are available in My Orders.
+        You can track your order status from your account.
+    </div>
+
+    <div class="buttons">
+
+        <a href="/orders/my-orders/" class="btn orders-btn">
+            VIEW MY ORDERS →
+        </a>
+
+        <a href="/" class="btn home-btn">
+            BACK TO HOME
+        </a>
+
+    </div>
+
+    <div class="footer">
+        MultiVendor • Thank You For Shopping
+    </div>
+
+</div>
+
+</body>
+</html>
