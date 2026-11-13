@@ -5,11 +5,7 @@ from urllib.parse import urlparse, unquote
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-
-# ==========================================
-# SECURITY SETTINGS
-# ==========================================
-
+# SECURITY
 SECRET_KEY = os.environ.get(
     'SECRET_KEY',
     'django-insecure-local-development-only-key'
@@ -27,11 +23,12 @@ CSRF_TRUSTED_ORIGINS = [
     'https://*.onrender.com',
 ]
 
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+SECURE_SSL_REDIRECT = not DEBUG
+SESSION_COOKIE_SECURE = not DEBUG
+CSRF_COOKIE_SECURE = not DEBUG
 
-# ==========================================
-# INSTALLED APPLICATIONS
-# ==========================================
-
+# APPLICATIONS
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -50,11 +47,7 @@ INSTALLED_APPS = [
     'reviews',
 ]
 
-
-# ==========================================
 # MIDDLEWARE
-# ==========================================
-
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
@@ -66,20 +59,10 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-
-# ==========================================
-# URL SETTINGS
-# ==========================================
-
 ROOT_URLCONF = 'config.urls'
-
 WSGI_APPLICATION = 'config.wsgi.application'
 
-
-# ==========================================
-# TEMPLATE SETTINGS
-# ==========================================
-
+# TEMPLATES
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
@@ -95,17 +78,10 @@ TEMPLATES = [
     },
 ]
 
-
-# ==========================================
-# DATABASE SETTINGS
-# LOCAL: MySQL
-# LIVE: PostgreSQL
-# ==========================================
-
+# DATABASE: RENDER POSTGRESQL / LOCAL MYSQL
 DATABASE_URL = os.environ.get('DATABASE_URL')
 
 if DATABASE_URL:
-
     db_url = urlparse(DATABASE_URL)
 
     DATABASES = {
@@ -118,13 +94,12 @@ if DATABASE_URL:
             'PORT': db_url.port or 5432,
             'OPTIONS': {
                 'sslmode': 'require',
+                'connect_timeout': 10,
             },
             'CONN_MAX_AGE': 600,
         }
     }
-
 else:
-
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.mysql',
@@ -139,11 +114,7 @@ else:
         }
     }
 
-
-# ==========================================
 # PASSWORD VALIDATION
-# ==========================================
-
 AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
@@ -159,30 +130,15 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
-# ==========================================
 # LANGUAGE AND TIMEZONE
-# ==========================================
-
 LANGUAGE_CODE = 'en-us'
-
 TIME_ZONE = 'Asia/Kolkata'
-
 USE_I18N = True
-
 USE_TZ = True
 
-
-# ==========================================
-# STATIC FILE SETTINGS
-# ==========================================
-
+# STATIC FILES
 STATIC_URL = '/static/'
-
-STATICFILES_DIRS = [
-    BASE_DIR / 'static',
-]
-
+STATICFILES_DIRS = [BASE_DIR / 'static']
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 
 STORAGES = {
@@ -194,38 +150,18 @@ STORAGES = {
     },
 }
 
-
-# ==========================================
-# MEDIA FILE SETTINGS
-# ==========================================
-
+# MEDIA FILES
 MEDIA_URL = '/media/'
-
 MEDIA_ROOT = BASE_DIR / 'media'
 
-
-# ==========================================
-# AUTHENTICATION SETTINGS
-# ==========================================
-
+# AUTHENTICATION
 AUTH_USER_MODEL = 'accounts.User'
-
 LOGIN_URL = '/login/'
-
 LOGIN_REDIRECT_URL = '/'
-
 LOGOUT_REDIRECT_URL = '/'
 
-
-# ==========================================
-# EMAIL SETTINGS
-# ==========================================
-
+# EMAIL
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
-
-# ==========================================
 # DEFAULT PRIMARY KEY
-# ==========================================
-
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
